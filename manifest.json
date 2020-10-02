@@ -1,0 +1,13 @@
+{
+  "name": "Production Clock",
+  "description": "Simple clock app designed for live production use cases.",
+  "version": "0.1",
+  "manifest_version": 2,
+  "app": {
+    "background": {
+      "scripts": ["main.js"]
+    }
+  },
+  "icons": {"128": "clock.png"},
+  "permissions": ["contextMenus", "alwaysOnTopWindows", "fullscreen"]
+}
