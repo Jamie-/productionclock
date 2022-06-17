@@ -12,11 +12,7 @@ Clock = function(selector, options) {
     // State
     this.hrs = null;
     this.mins = null;
-    // Init HTML
-    var html = `<span class="clk-hrs"></span><span class="clk-sep">:</span><span class="clk-mins"></span><span class="clk-sep">:</span><span class="clk-secs"></span>`;
-    if (this.options["24hr"] === false) {
-        html += '<span class="clk-ampm"></span>';
-    }
+    var html = `<span class="clk-hrs"></span><span class="clk-sep">:</span><span class="clk-mins"></span><span class="clk-sep">:</span><span class="clk-secs"></span><span class="clk-ampm"></span>`;
     this._parent.html(html);
 }
 
@@ -25,7 +21,7 @@ Clock.prototype.tick = function() {
     hours = now.getHours();
     mins = now.getMinutes();
     ampm = "";
-    if ("24hr" in this.options && this.options["24hr"] === false) {
+    if ("12hr" in this.options && this.options["12hr"] === true) {
         if (hours > 11) {
             ampm = "pm";
         } else {

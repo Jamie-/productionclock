@@ -12,13 +12,22 @@ chrome.runtime.onInstalled.addListener(function() {
     chrome.contextMenus.create({
         title: "Dark mode",
         type: "checkbox",
+        checked: false,
         id: "darkMode",
         contexts: ["all"]
     });
     chrome.contextMenus.create({
         title: "Always on top",
         type: "checkbox",
+        checked: false,
         id: "alwaysOnTop",
+        contexts: ["all"]
+    });
+    chrome.contextMenus.create({
+        title: "12hr clock",
+        type: "checkbox",
+        checked: false,
+        id: "12hr",
         contexts: ["all"]
     });
     chrome.contextMenus.create({

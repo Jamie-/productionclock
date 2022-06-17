@@ -1,5 +1,6 @@
 $(document).ready(function() {
-    window.clock = new Clock("#clock", {"24hr": false});
+    window.options = {};
+    window.clock = new Clock("#clock", window.options);
     window.clock.startTick();
     fitClock();
 });
@@ -67,6 +68,11 @@ chrome.contextMenus.onClicked.addListener(function(event) {
             } else {
                 $("body").removeClass("theme-dark");
             }
+            break;
+        case "12hr":
+            options["12hr"] = event.checked;
+            window.clock.tick();
+            fitClock();
             break;
         case "fullscreen":
             chrome.app.window.current().fullscreen();
