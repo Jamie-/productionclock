@@ -26,11 +26,13 @@ Clock.prototype.tick = function() {
     mins = now.getMinutes();
     ampm = "";
     if ("24hr" in this.options && this.options["24hr"] === false) {
-        if (hours > 12) {
-            hours = hours - 12;
+        if (hours > 11) {
             ampm = "pm";
         } else {
             ampm = "am";
+        }
+        if (hours > 12) {
+            hours = hours - 12;
         }
     }
     // Only update hours and minutes if they've changed
