@@ -71,7 +71,7 @@ chrome.contextMenus.onClicked.addListener(function(event) {
             break;
         case "12hr":
             options["12hr"] = event.checked;
-            window.clock.tick();
+            window.clock.tick(true);
             fitClock();
             break;
         case "fullscreen":

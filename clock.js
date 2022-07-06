@@ -16,7 +16,7 @@ Clock = function(selector, options) {
     this._parent.html(html);
 }
 
-Clock.prototype.tick = function() {
+Clock.prototype.tick = function(force_update = false) {
     let now = new Date();
     hours = now.getHours();
     mins = now.getMinutes();
@@ -32,13 +32,14 @@ Clock.prototype.tick = function() {
         }
     }
     // Only update hours and minutes if they've changed
-    if (hours !== this.hrs) {
+    if (hours !== this.hrs || force_update) {
         this._parent.find(".clk-hrs").text(`${(hours).pad(2)}`);
         this._parent.find(".clk-ampm").text(" " + ampm);
         this.hrs = hours;
     }
-    if (mins !== this.mins) {
+    if (mins !== this.mins || force_update) {
         this._parent.find(".clk-mins").text(`${(mins).pad(2)}`);
+        this.mins = mins;
     }
     this._parent.find(".clk-secs").text(`${(now.getSeconds()).pad(2)}`);
 }
