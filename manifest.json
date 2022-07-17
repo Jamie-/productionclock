@@ -1,7 +1,7 @@
 {
   "name": "Production Clock",
   "description": "Simple clock app designed for live production.",
-  "version": "0.1",
+  "version": "1.0",
   "manifest_version": 2,
   "app": {
     "background": {
