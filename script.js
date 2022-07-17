@@ -1,8 +1,12 @@
 $(document).ready(function() {
-    window.options = {};
-    window.clock = new Clock("#clock", window.options);
-    window.clock.startTick();
-    fitClock();
+    chrome.storage.local.get(["options"], function (result) {
+        console.log("Restored options: ", result);
+        window.options = result["options"] || {};
+        applyStartConfig(window.options);
+        window.clock = new Clock("#clock", window.options);
+        window.clock.startTick();
+        fitClock();
+    });
 });
 
 function fitClock() {
@@ -40,6 +44,34 @@ function fitFont(srcSelector, tgtSelector, padding) {
     console.log("Resizing done, font size: " + size + ", took " + counter + " iterations");
 }
 
+// Set config in local storage
+function setConfig(key, value) {
+    window.options[key] = value;
+    chrome.storage.local.set({options: window.options});
+}
+
+// Apply loaded config at app startup
+function applyStartConfig(options) {
+    setDarkMode(options["darkMode"] || false);
+    // Update checkboxes in context menu
+    if (options["12hr"] === true) {
+        chrome.contextMenus.update("12hr", {checked: true});
+    }
+    if (options["darkMode"] === true) {
+        chrome.contextMenus.update("darkMode", {checked: true});
+    }
+}
+
+// Set dark mode enabled/disabled
+function setDarkMode(enabled) {
+    if (enabled) {
+        $("body").addClass("theme-dark");
+    } else {
+        $("body").removeClass("theme-dark");
+    }
+    setConfig("darkMode", enabled);
+}
+
 $(window).resize(function () {
     if (window.resizeTimer !== undefined) {
         // If we already have a window resize timer set, clear it before creating a new one.
@@ -56,21 +88,14 @@ chrome.contextMenus.onClicked.addListener(function(event) {
     }
     switch (event.menuItemId) {
         case "alwaysOnTop":
-            if (event.checked) {
-                chrome.app.window.current().setAlwaysOnTop(true);
-            } else {
-                chrome.app.window.current().setAlwaysOnTop(false);
-            }
+            chrome.app.window.current().setAlwaysOnTop(event.checked);
+            setConfig("alwaysOnTop", event.checked);
             break;
         case "darkMode":
-            if (event.checked) {
-                $("body").addClass("theme-dark");
-            } else {
-                $("body").removeClass("theme-dark");
-            }
+            setDarkMode(event.checked);
             break;
         case "12hr":
-            options["12hr"] = event.checked;
+            setConfig("12hr", event.checked);
             window.clock.tick(true);
             fitClock();
             break;

@@ -9,5 +9,5 @@
     }
   },
   "icons": {"128": "clock.png"},
-  "permissions": ["contextMenus", "alwaysOnTopWindows", "fullscreen"]
+  "permissions": ["contextMenus", "alwaysOnTopWindows", "fullscreen", "storage"]
 }
