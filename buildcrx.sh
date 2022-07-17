@@ -18,9 +18,9 @@ trap 'rm -f "$FILE_PUB" "$FILE_SIG" "$FILE_ZIP" "$FILE_TOSIGN" "$FILE_CRX_ID"' E
 set -ex
 
 # Zip up extension data
-zip -q -9 -X "$FILE_ZIP" \
-  lib/* \
-  styles/* \
+zip -qr -9 -X "$FILE_ZIP" \
+  lib \
+  styles \
   clock.png \
   manifest.json \
   *.js \
