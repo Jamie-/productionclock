@@ -1,5 +1,5 @@
 Number.prototype.pad = function(size) {
-    var s = String(this);
+    let s = String(this);
     while (s.length < (size || 2)) {s = "0" + s;}
     return s;
 }
@@ -12,7 +12,7 @@ Clock = function(selector, options) {
     // State
     this.hrs = null;
     this.mins = null;
-    var html = `<span class="clk-hrs"></span><span class="clk-sep">:</span><span class="clk-mins"></span><span class="clk-sep">:</span><span class="clk-secs"></span><span class="clk-ampm"></span>`;
+    let html = `<span class="clk-hrs"></span><span class="clk-sep">:</span><span class="clk-mins"></span><span class="clk-sep">:</span><span class="clk-secs"></span><span class="clk-ampm"></span>`;
     this._parent.html(html);
 }
 
@@ -21,7 +21,7 @@ Clock.prototype.tick = function(force_update = false) {
     hours = now.getHours();
     mins = now.getMinutes();
     ampm = "";
-    if ("12hr" in this.options && this.options["12hr"] === true) {
+    if (this.options["12hr"] === true) {
         if (hours > 11) {
             ampm = "pm";
         } else {
@@ -51,5 +51,5 @@ Clock.prototype.startTick = function() {
 }
 
 Clock.prototype.stopTick = function() {
-    clearInterval(this.tickId)
+    clearInterval(this.tickId);
 }
