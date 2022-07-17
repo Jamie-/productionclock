@@ -7,7 +7,8 @@ fi
 
 FILE_KEY="$1"
 BASENAME="productionclock"
-FILE_CRX="$BASENAME.crx"
+VERSION="$(jq -r .version < manifest.json)"
+FILE_CRX="$BASENAME-v$VERSION.crx"
 FILE_PUB="$BASENAME.pub"
 FILE_SIG="$BASENAME.sig"
 FILE_ZIP="$BASENAME.zip"
